@@ -1,9 +1,14 @@
 let states_option = document.getElementById("states"); 
 let districts_option = document.getElementById("districts"); 
-let message = document.getElementById("message"); 
+let date = document.getElementById("date"); 
 let submit_btn = document.getElementById("submit-btn"); 
 let state_ind = null, district_ind = null; 
 let jsonData = null;
+let result = {
+    "district_id": null,
+    "date": null
+};
+let vaccination_centres = document.getElementById("vaccination-centres");
 
 // Fetching the json Data from the file for the first time
 function loadStates() {
@@ -16,7 +21,9 @@ function loadStates() {
             jsonData = data;
 
             //creating options for select tag
-            let html = '';
+            let html = `
+                <option hidden disabled selected value> -- select an option -- </option>
+            `;
             for (let i = 1; i < data.length; i++) {
                 html += `
                     <option value='${i}'>${data[i].state_name}</option>
@@ -30,7 +37,9 @@ function loadStates() {
 }
 
 function loadDistricts(data, stateId){
-    let html = '';
+    let html = `
+        <option hidden disabled selected value> -- select an option -- </option>
+    `;
     for (let d of data[stateId].districts){
         // console.log(`${d.district_id} - ${d.district_name}`);
         html += `
@@ -42,35 +51,51 @@ function loadDistricts(data, stateId){
 }
 
 function onStatesChanged() {
-    state_ind = states_option.selectedIndex + 1;
-    // console.log(jsonData[index]);
+    state_ind = states_option.selectedIndex;
+    // console.log(jsonData[state_ind].state_name);
+
     //loading the districts based on the selections in the states dropdown
     loadDistricts(jsonData, state_ind); 
-
 }
 
 function onDistrictsChanged(){
-    district_ind = districts_option.selectedIndex; 
-    // console.log(jsonData[state_ind].districts[district_ind]);
+    district_ind = districts_option.selectedIndex - 1; 
+    result.district_id = jsonData[state_ind].districts[district_ind].district_id;
+    // console.log(jsonData[state_ind].districts[district_ind].district_name);
+}
 
-    let html = `Your state is ${jsonData[state_ind].state_name} and your district is ${jsonData[state_ind].districts[district_ind].district_name}`;
-    message.innerHTML = html; 
+function printDate(){
+    let today = date.value.split('-').reverse().join('-');
+    result.date = today;
+    // console.log(today);
+}
+
+function printCenters(){
+    // console.log(result.district_id);
+    // console.log(result.date);
+    let url = `https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByDistrict?district_id=${result.district_id}&date=${result.date}`;
+    fetch(url)
+        .then(function(response){
+            return response.json();
+        })
+        .then(function(data){
+            let html = data;
+            console.log(data);
+            vaccination_centres.innerHTML = html;
+        });
 }
 
 //calling the states function for loading the states initially in the dropdown
 loadStates();
 
 //this is keeping the watch on states dropdown
-if (states_option.addEventListener) {
-  states_option.addEventListener("change", onStatesChanged, false);
-} else {
-  states_option.attachEvent("onchange", onStatesChanged, false);
-}
+states_option.addEventListener("change", onStatesChanged);
 
 //this is keeping the watch on districts dropdown
-if (districts_option.addEventListener){
-    districts_option.addEventListener("change", onDistrictsChanged, false);
-}
-else {
-    districts_option.attachEvent("onchange", onDistrictsChanged, false); 
-}
+districts_option.addEventListener("change", onDistrictsChanged);
+
+//this is keeping the watch on date dropdown
+date.addEventListener("change", printDate); 
+
+//action after clicking submit
+submit_btn.addEventListener("click", printCenters); 
