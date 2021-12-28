@@ -10,6 +10,8 @@ let result = {
     date: null,
 };
 let vaccination_centers = document.getElementById("vaccination-centers");
+vaccination_centers.style.visibility = 'hidden';
+let table_body = document.getElementsByTagName("tbody")[0]; 
 
 // Fetching the json Data from the file for the first time
 function loadStates() {
@@ -77,6 +79,8 @@ function printDate() {
 function printCenters() {
     // console.log(result.district_id);
     // console.log(result.date);
+    vaccination_centers.style.visibility = 'visible'; 
+
     let url = `https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByDistrict?district_id=${result.district_id}&date=${result.date}`;
 
     fetch(url)
@@ -86,15 +90,65 @@ function printCenters() {
         .then(function (data) {
             data = data.sessions;
             for (let i = 0; i < data.length; i++) {
-                console.log(`Center Id: ${data[i].center_id}`);
-                console.log(`Name: ${data[i].name}`);
-                console.log(`State: ${data[i].state_name}`);
-                console.log(`District: ${data[i].district_name}`);
-                console.log(`Pincode: ${data[i].pincode}`);
-                console.log(`Vaccine: ${data[i].vaccine}`); 
-                console.log(`Dose 1: ${data[i].available_capacity_dose1}`);
-                console.log(`Dose 2: ${data[i].available_capacity_dose2}`);
-                console.log(`Fee: ${data[i].fee_type}`);
+                let row = document.createElement('tr'); 
+                
+                let center_id = document.createElement('td'); 
+                let center_id_text = document.createTextNode(
+                    `${data[i].center_id}`
+                );
+                center_id.appendChild(center_id_text); 
+                row.appendChild(center_id); 
+
+                let name = document.createElement('td'); 
+                let name_text = document.createTextNode(`${data[i].name}`);
+                name.appendChild(name_text); 
+                row.appendChild(name); 
+
+                let address = document.createElement('td'); 
+                let address_text = document.createTextNode(`${data[i].address}`); 
+                address.appendChild(address_text); 
+                row.appendChild(address); 
+
+                let state = document.createElement('td'); 
+                let state_text = document.createTextNode(`${data[i].state_name}`);
+                state.appendChild(state_text); 
+                row.appendChild(state); 
+
+                let district = document.createElement('td'); 
+                let district_text = document.createTextNode(`${data[i].district_name}`);
+                district.appendChild(district_text); 
+                row.appendChild(district); 
+
+                let pincode = document.createElement('td'); 
+                let pincode_text = document.createTextNode(`${data[i].pincode}`);
+                pincode.appendChild(pincode_text); 
+                row.appendChild(pincode); 
+
+                let vaccine = document.createElement('td'); 
+                let vaccine_text = document.createTextNode(`${data[i].vaccine}`);
+                vaccine.appendChild(vaccine_text); 
+                row.appendChild(vaccine); 
+
+                let dose1 = document.createElement('td'); 
+                let dose1_text = document.createTextNode(
+                    `${data[i].available_capacity_dose1}`
+                );
+                dose1.appendChild(dose1_text); 
+                row.appendChild(dose1); 
+
+                let dose2 = document.createElement('td'); 
+                let dose2_text = document.createTextNode(
+                    `${data[i].available_capacity_dose2}`
+                );
+                dose2.appendChild(dose2_text); 
+                row.appendChild(dose2); 
+
+                let fees = document.createElement('td'); 
+                let fees_text = document.createTextNode(`${data[i].fee_type}`);
+                fees.appendChild(fees_text); 
+                row.appendChild(fees); 
+                
+                table_body.appendChild(row); 
             }
         });
 }
