@@ -1,0 +1,28 @@
+* {
+    box-sizing: border-box;
+}
+
+#vaccination-centers {
+    margin: 10px auto;
+    padding: 10px; 
+}
+
+#vaccination-centers table{
+    /* border: 1px solid black;  */
+    padding: 5px; 
+}
+
+#vaccination-centers table thead th{
+    border: 1px solid black;
+    padding: 5px 7px; 
+    background-color: #D6EEEE;
+}
+
+#vaccination-centers table tr td{
+    border: 1px solid black;
+    padding: 5px 7px; 
+}
+
+#vaccination-centers table tr:nth-child(even) {
+  background-color: #D6EEEE;
+}
