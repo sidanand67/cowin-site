@@ -1,17 +1,17 @@
-let states_option = document.getElementById("states");
-let districts_option = document.getElementById("districts");
-let date = document.getElementById("date");
-// let submit_btn = document.getElementById("submit-btn");
-let state_ind = null,
-    district_ind = null;
+const states_option = document.getElementById("states");
+const districts_option = document.getElementById("districts");
+const date = document.getElementById("date");
+let state_ind = null;
+let district_ind = null;
 let jsonData = null;
 let result = {
     district_id: null,
     date: null,
 };
-let vaccination_centers = document.getElementById("vaccination-centers");
-vaccination_centers.style.visibility = 'hidden';
-let table_body = document.getElementsByTagName("tbody")[0]; 
+const vaccination_centers = document.getElementById("vaccination-centers");
+const table_body = document.getElementsByTagName("tbody")[0]; 
+const table = document.getElementById("vacc-table"); 
+
 
 // Fetching the json Data from the file for the first time
 function loadStates() {
@@ -64,20 +64,23 @@ function onStatesChanged() {
 function onDistrictsChanged() {
     date.disabled = false;
     district_ind = districts_option.selectedIndex - 1;
-    result.district_id =
-        jsonData[state_ind].districts[district_ind].district_id;
-    // console.log(jsonData[state_ind].districts[district_ind].district_name);
+    result.district_id = jsonData[state_ind].districts[district_ind].district_id;
+    deleteTable(); 
 }
 
-function printDate() {
+function deleteTable(){
+    let rowCount = table.rows.length; 
+    for(let i = rowCount-1; i > 0; i--){
+        table.deleteRow(i); 
+    }
+}
+
+function getDate() {
     let today = date.value.split("-").reverse().join("-");
     result.date = today;
-    // console.log(today);
 }
 
-function printCenters() {
-    // console.log(result.district_id);
-    // console.log(result.date);
+function renderCenters() {
     vaccination_centers.style.visibility = 'visible'; 
 
     let url = `https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByDistrict?district_id=${result.district_id}&date=${result.date}`;
@@ -162,4 +165,4 @@ states_option.addEventListener("change", onStatesChanged);
 districts_option.addEventListener("change", onDistrictsChanged);
 
 //this is keeping the watch on date dropdown
-date.addEventListener("change", printDate);
+date.addEventListener("change", getDate);

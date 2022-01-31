@@ -4,6 +4,7 @@
 
 #vaccination-centers {
     margin: 10px auto;
+    visibility: hidden;
     padding: 10px; 
 }
 

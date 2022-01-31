@@ -10,7 +10,7 @@
     <body>
         <div>
             <div>
-                <form onsubmit="event.preventDefault(); printCenters();">
+                <form onsubmit="event.preventDefault(); renderCenters();">
                     <select name="states" id="states" required></select>
                     <select
                         name="districts"
@@ -24,7 +24,7 @@
             </div>
 
             <div id="vaccination-centers">
-                <table>
+                <table id="vacc-table">
                     <thead>
                         <tr>
                             <th>Center Id</th>
