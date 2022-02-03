@@ -1,29 +1,73 @@
 * {
-    box-sizing: border-box;
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
 }
 
+.navbar {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 70px;
+	padding: 0px 50px;
+	color: #fff;
+	background-color: #02785b;
+}
+
+h1 {
+	font-size: 34px;
+}
+
+.input-form {
+	display: flex;
+	justify-content: center;
+	height: 50px;
+	align-items: center;
+	padding-top: 15px;
+}
+
+select#states {
+	height: 30px;
+	padding: 4px;
+}
+select#districts {
+	height: 30px;
+	padding: 4px;
+}
+input#date {
+	height: 30px;
+	padding: 4px;
+}
+
+button#submit-btn {
+	width: 90px;
+	height: 30px;
+	background-color: transparent;
+}
+
+/* Vaccination Table */
 #vaccination-centers {
-    margin: 10px auto;
-    visibility: hidden;
-    padding: 10px; 
+	margin: 10px auto;
+	visibility: hidden;
+	padding: 10px;
 }
 
-#vaccination-centers table{
-    /* border: 1px solid black;  */
-    padding: 5px; 
+#vaccination-centers table {
+	/* border: 1px solid black;  */
+	padding: 5px;
 }
 
-#vaccination-centers table thead th{
-    border: 1px solid black;
-    padding: 5px 7px; 
-    background-color: #D6EEEE;
+#vaccination-centers table thead th {
+	border: 1px solid black;
+	padding: 5px 7px;
+	background-color: #d6eeee;
 }
 
-#vaccination-centers table tr td{
-    border: 1px solid black;
-    padding: 5px 7px; 
+#vaccination-centers table tr td {
+	border: 1px solid black;
+	padding: 5px 7px;
 }
 
 #vaccination-centers table tr:nth-child(even) {
-  background-color: #D6EEEE;
+	background-color: #d6eeee;
 }
