@@ -8,10 +8,7 @@ let result = {
 	district_id: null,
 	date: null,
 };
-const vaccination_centers = document.getElementById("vaccination-centers");
-const table_body = document.getElementsByTagName("tbody")[0];
-const table = document.getElementById("vacc-table");
-const vaccineCard = document.getElementById("vaccine-card"); 
+const vaccineCenters = document.getElementById("vaccine-center"); 
 const dateSelected = document.getElementById("selected-date"); 
 
 // Fetching the json Data from the file for the first time
@@ -76,9 +73,9 @@ function getDate() {
 }
 
 function clearData(){
-	vaccineCard.innerHTML = ""; 
+	vaccineCenters.innerHTML = ""; 
 	dateSelected.style.visibility = "hidden"; 
-	vaccineCard.style.visibility = "hidden"; 
+	vaccineCenters.style.visibility = "hidden"; 
 }
 
 function renderCenters() {
@@ -93,23 +90,25 @@ function renderCenters() {
 			let html = ``;
 			for (let i = 0; i < data.length; i++) {
 				html += `
-					<h3 class="center-id" id="center-id">${data[i].center_id}</h3>
-					<h2 class="center-name" id="center-name">${data[i].name}</h2>
-					<h3 class="center-add" id="center-add">${data[i].address}, ${data[i].district_name}, ${data[i].state_name}</h3>
-					<h3 class="center-pin" id="center-pin">${data[i].pincode}</h3>
-					<h3 class="center-vaccine" id="center-vaccine">${data[i].vaccine}</h3>
-					<div class="vaccine-dose">
-						<h3 class="center-dose-1" id="center-dose-1">${data[i].available_capacity_dose1}</h3>
-						<h3 class="center-dose-2" id="center-dose-2">${data[i].available_capacity_dose2}</h3>
+					<div class="vaccine-card">
+						<h3 class="center-id" id="center-id">${data[i].center_id}</h3>
+						<h2 class="center-name" id="center-name">${data[i].name}</h2>
+						<h3 class="center-add" id="center-add">${data[i].address}, ${data[i].district_name}, ${data[i].state_name}</h3>
+						<h3 class="center-pin" id="center-pin">${data[i].pincode}</h3>
+						<h3 class="center-vaccine" id="center-vaccine">${data[i].vaccine}</h3>
+						<div class="vaccine-dose">
+							<h3 class="center-dose-1" id="center-dose-1">${data[i].available_capacity_dose1}</h3>
+							<h3 class="center-dose-2" id="center-dose-2">${data[i].available_capacity_dose2}</h3>
+						</div>
+						<h3 class="center-fee" id="center-fee">${data[i].fee_type}</h3>
 					</div>
-					<h3 class="center-fee" id="center-fee">${data[i].fee_type}</h3>
 				`;
 			}
 
-			vaccineCard.innerHTML = html; 
-			dateSelected.style.visibility = "visible"; 
+			vaccineCenters.innerHTML = html; 
 			dateSelected.textContent = `Date: ${result.date}`; 
-			vaccineCard.style.visibility = "visible"; 
+			dateSelected.style.visibility = "visible"; 
+			vaccineCenters.style.visibility = "visible"; 
 		})
 		.catch(() => console.log("no data found..."));
 }
@@ -124,7 +123,7 @@ states_option.addEventListener("change", onStatesChanged);
 districts_option.addEventListener("change", onDistrictsChanged);
 
 //keeping track of change in date
-date.addEventListener("change", renderCenters); 
+date.addEventListener("change", clearData); 
 
 //this is keeping the watch on date dropdown
 date.addEventListener("change", getDate);

@@ -52,8 +52,9 @@ button#submit-btn {
 	background-color: transparent;
 }
 
-.vaccine {
+.vaccine-center {
 	display: flex;
+	visibility: hidden;
 	flex-wrap: wrap;
 	justify-content: space-evenly;
 	align-items: center;
@@ -62,7 +63,6 @@ button#submit-btn {
 }
 
 .vaccine-card {
-	visibility: hidden;
 	width: 300px;
 	padding: 20px;
 	margin: 20px;
