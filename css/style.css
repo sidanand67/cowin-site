@@ -62,6 +62,7 @@ button#submit-btn {
 }
 
 .vaccine-card {
+	visibility: hidden;
 	width: 300px;
 	padding: 20px;
 	margin: 20px;
@@ -75,29 +76,6 @@ button#submit-btn {
 	justify-content: space-evenly;
 }
 
-/* Vaccination Table */
-#vaccination-centers {
-	margin: 10px auto;
+#selected-date{
 	visibility: hidden;
-	padding: 10px;
-}
-
-#vaccination-centers table {
-	/* border: 1px solid black;  */
-	padding: 5px;
-}
-
-#vaccination-centers table thead th {
-	border: 1px solid black;
-	padding: 5px 7px;
-	background-color: #d6eeee;
-}
-
-#vaccination-centers table tr td {
-	border: 1px solid black;
-	padding: 5px 7px;
-}
-
-#vaccination-centers table tr:nth-child(even) {
-	background-color: #d6eeee;
 }
