@@ -5,12 +5,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>Document</title>
+    <title>Cowid</title>
 
     <link rel="stylesheet" href="./css/style.css">
 
 </head>
-
 
 <body>
 
@@ -18,14 +17,33 @@
         <h1>Cowid</h1>
     </nav>
 
-    <div class="input-form">
+    <div>
 
-        <form onsubmit="event.preventDefault(); renderCenters();">
+        <form onsubmit="event.preventDefault(); renderCenters();" class="input-form">
             <select name="states" id="states" required></select>
             <select name="districts" id="districts" required disabled></select>
             <input type="date" id="date" required disabled />
             <button type="submit" id="submit-btn">Submit</button>
         </form>
+    </div>
+
+    <div class="vaccine">
+        <!-- center cards -->
+        <div class="vaccine-card">
+
+            <h3 class="center-id" id="center-id">599278</h3>
+            <h2 class="center-name" id="center-name">Chaitanya Hospital Sector 44</h2>
+            <h3 class="center-add" id="center-add">Chaitanya Hospital Hospital Site No. 1 And 2 Sector 44 C</h3>
+            <h3 class="center-pin" id="center-pin">160047</h3>
+            <h3 class="center-vaccine" id="center-vaccine">Vaccine</h3>
+            <div class="vaccine-dose">
+                <h3 class="center-dose-1" id="center-dose-1">Dose 1</h3>
+                <h3 class="center-dose-2" id="center-dose-2">Dose 2</h3>
+            </div>
+            <h3 class="center-fee" id="center-fee">Fees</h3>
+        </div>
+
+
     </div>
 
     <div id="vaccination-centers">
