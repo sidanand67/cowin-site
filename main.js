@@ -11,6 +11,8 @@ let result = {
 const vaccination_centers = document.getElementById("vaccination-centers");
 const table_body = document.getElementsByTagName("tbody")[0];
 const table = document.getElementById("vacc-table");
+const vaccineCard = document.getElementById("vaccine-card"); 
+const dateSelected = document.getElementById("selected-date"); 
 
 // Fetching the json Data from the file for the first time
 function loadStates() {
@@ -54,29 +56,29 @@ function loadDistricts(data, stateId) {
 function onStatesChanged() {
 	districts_option.disabled = false;
 	state_ind = states_option.selectedIndex;
-	// console.log(jsonData[state_ind].state_name);
-
 	//loading the districts based on the selections in the states dropdown
 	loadDistricts(jsonData, state_ind);
+	
+	clearData(); 
 }
 
 function onDistrictsChanged() {
 	date.disabled = false;
 	district_ind = districts_option.selectedIndex - 1;
 	result.district_id = jsonData[state_ind].districts[district_ind].district_id;
-	deleteTable();
-}
 
-function deleteTable() {
-	let rowCount = table.rows.length;
-	for (let i = rowCount - 1; i > 0; i--) {
-		table.deleteRow(i);
-	}
+	clearData(); 
 }
 
 function getDate() {
 	let today = date.value.split("-").reverse().join("-");
 	result.date = today;
+}
+
+function clearData(){
+	vaccineCard.innerHTML = ""; 
+	dateSelected.style.visibility = "hidden"; 
+	vaccineCard.style.visibility = "hidden"; 
 }
 
 function renderCenters() {
@@ -88,67 +90,28 @@ function renderCenters() {
 		})
 		.then(function (data) {
 			data = data.sessions;
+			let html = ``;
 			for (let i = 0; i < data.length; i++) {
-				vaccination_centers.style.visibility = "visible";
-				let row = document.createElement("tr");
-
-				let center_id = document.createElement("td");
-				let center_id_text = document.createTextNode(`${data[i].center_id}`);
-				center_id.appendChild(center_id_text);
-				row.appendChild(center_id);
-
-				let name = document.createElement("td");
-				let name_text = document.createTextNode(`${data[i].name}`);
-				name.appendChild(name_text);
-				row.appendChild(name);
-
-				let address = document.createElement("td");
-				let address_text = document.createTextNode(`${data[i].address}`);
-				address.appendChild(address_text);
-				row.appendChild(address);
-
-				let state = document.createElement("td");
-				let state_text = document.createTextNode(`${data[i].state_name}`);
-				state.appendChild(state_text);
-				row.appendChild(state);
-
-				let district = document.createElement("td");
-				let district_text = document.createTextNode(`${data[i].district_name}`);
-				district.appendChild(district_text);
-				row.appendChild(district);
-
-				let pincode = document.createElement("td");
-				let pincode_text = document.createTextNode(`${data[i].pincode}`);
-				pincode.appendChild(pincode_text);
-				row.appendChild(pincode);
-
-				let vaccine = document.createElement("td");
-				let vaccine_text = document.createTextNode(`${data[i].vaccine}`);
-				vaccine.appendChild(vaccine_text);
-				row.appendChild(vaccine);
-
-				let dose1 = document.createElement("td");
-				let dose1_text = document.createTextNode(
-					`${data[i].available_capacity_dose1}`
-				);
-				dose1.appendChild(dose1_text);
-				row.appendChild(dose1);
-
-				let dose2 = document.createElement("td");
-				let dose2_text = document.createTextNode(
-					`${data[i].available_capacity_dose2}`
-				);
-				dose2.appendChild(dose2_text);
-				row.appendChild(dose2);
-
-				let fees = document.createElement("td");
-				let fees_text = document.createTextNode(`${data[i].fee_type}`);
-				fees.appendChild(fees_text);
-				row.appendChild(fees);
-
-				table_body.appendChild(row);
+				html += `
+					<h3 class="center-id" id="center-id">${data[i].center_id}</h3>
+					<h2 class="center-name" id="center-name">${data[i].name}</h2>
+					<h3 class="center-add" id="center-add">${data[i].address}, ${data[i].district_name}, ${data[i].state_name}</h3>
+					<h3 class="center-pin" id="center-pin">${data[i].pincode}</h3>
+					<h3 class="center-vaccine" id="center-vaccine">${data[i].vaccine}</h3>
+					<div class="vaccine-dose">
+						<h3 class="center-dose-1" id="center-dose-1">${data[i].available_capacity_dose1}</h3>
+						<h3 class="center-dose-2" id="center-dose-2">${data[i].available_capacity_dose2}</h3>
+					</div>
+					<h3 class="center-fee" id="center-fee">${data[i].fee_type}</h3>
+				`;
 			}
-		});
+
+			vaccineCard.innerHTML = html; 
+			dateSelected.style.visibility = "visible"; 
+			dateSelected.textContent = `Date: ${result.date}`; 
+			vaccineCard.style.visibility = "visible"; 
+		})
+		.catch(() => console.log("no data found..."));
 }
 
 //calling the states function for loading the states initially in the dropdown
@@ -159,6 +122,9 @@ states_option.addEventListener("change", onStatesChanged);
 
 //this is keeping the watch on districts dropdown
 districts_option.addEventListener("change", onDistrictsChanged);
+
+//keeping track of change in date
+date.addEventListener("change", renderCenters); 
 
 //this is keeping the watch on date dropdown
 date.addEventListener("change", getDate);
