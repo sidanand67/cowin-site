@@ -1,3 +1,7 @@
+body {
+	width: 100%;
+}
+
 * {
 	box-sizing: border-box;
 	margin: 0;
@@ -63,7 +67,8 @@ button#submit-btn {
 }
 
 .vaccine-card {
-	width: 300px;
+	width: 550px;
+	height: 350px;
 	padding: 20px;
 	margin: 20px;
 	text-align: center;
@@ -76,6 +81,6 @@ button#submit-btn {
 	justify-content: space-evenly;
 }
 
-#selected-date{
-	visibility: hidden;
+.pb-5 {
+	padding-bottom: 5px;
 }
