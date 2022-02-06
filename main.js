@@ -9,7 +9,7 @@ let result = {
 	date: null,
 };
 const vaccineCenters = document.getElementById("vaccine-center");
-const dateSelected = document.getElementById("selected-date");
+// const dateSelected = document.getElementById("selected-date");
 
 // Fetching the json Data from the file for the first time
 function loadStates() {
@@ -74,7 +74,7 @@ function getDate() {
 
 function clearData() {
 	vaccineCenters.innerHTML = "";
-	dateSelected.style.visibility = "hidden";
+	// dateSelected.style.visibility = "hidden";
 	vaccineCenters.style.visibility = "hidden";
 }
 
@@ -110,8 +110,8 @@ function renderCenters() {
 			}
 
 			vaccineCenters.innerHTML = html;
-			dateSelected.textContent = `Date: ${result.date}`;
-			dateSelected.style.visibility = "visible";
+			// dateSelected.textContent = `Date: ${result.date}`;
+			// dateSelected.style.visibility = "visible";
 			vaccineCenters.style.visibility = "visible";
 		})
 		.catch(() => console.log("no data found..."));

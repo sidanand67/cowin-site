@@ -1,6 +1,6 @@
-body {
+/* body {
 	width: 100%;
-}
+} */
 
 * {
 	box-sizing: border-box;
@@ -23,37 +23,74 @@ h1 {
 	font-size: 34px;
 }
 
-.input-form {
+.form {
 	display: flex;
 	justify-content: center;
-	height: 50px;
 	align-items: center;
+}
+
+@media only screen and (max-width: 975px) {
+	.form {
+		display: flex;
+		justify-content: center;
+	}
+}
+
+.input-form {
+	/*height: 50px;
+	 display: flex;
+	justify-content: center;
+	align-items: center; */
 	padding-top: 14px;
 	margin-bottom: 14px;
 }
 
 select#states {
+	width: 250px;
 	height: 30px;
 	padding: 4px;
+	margin-top: 10px;
 	margin-right: 20px;
 }
 
 select#districts {
+	width: 250px;
 	height: 30px;
 	padding: 4px;
+	margin-top: 10px;
 	margin-right: 20px;
 }
 
 input#date {
+	width: 250px;
 	height: 30px;
 	padding: 4px;
+	margin-top: 10px;
 	margin-right: 20px;
+}
+
+@media only screen and (max-width: 975px) {
+	select#districts {
+		display: flex;
+	}
+
+	input#date {
+		display: flex;
+	}
 }
 
 button#submit-btn {
 	width: 90px;
 	height: 30px;
 	background-color: transparent;
+	margin-top: 10px;
+}
+
+@media only screen and (max-width: 975px) {
+	.button {
+		display: flex;
+		justify-content: center;
+	}
 }
 
 .vaccine-center {
